@@ -60,3 +60,10 @@
         1, size, size ^ (1 / 2)
     there are algorithms that automatically choose the features for you
 
+# normal equation
+  1) no need to choose the learning rate
+  2) no iteration
+  3) need to compute an inverse matrix: O(n ^ 3)
+  4) it is slow if the number of features is large
+     if number of features <= 10,000, we could consider to use normal equation
+     otherwise, use gradient descent or other optimization algoirthms
