@@ -73,4 +73,5 @@
          size in feet ^ 2
          size in meter ^ 2
      ex. too many features: number of examples <= number of features
-         delete some features, or use regularization
+         then delete some features
+              use regularization
