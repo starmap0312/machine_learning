@@ -41,3 +41,22 @@
     choose learning rate:
       first, choose in a rate of 10, ex. ..., 0.001, 0.01, 0.1, 1, ...
       next, we may find that 0.01 (too small) and 0.1 (too large), so we choose in a rate of 3, ex. 0.01, 0.03, 0.09, 0.1
+
+# polynomial regression
+  define new features based on what insight you have to a problem (fit more complex (ex. quadratic/cubic) function to your data, instead of just linear function) 
+    ex. suppose we have features
+          width and height
+        we can define a new feature
+          area = width * height
+        sometimes this leads to a better training model
+  polynomial regression
+    ex. qudratic model: add new features of the square or existing features
+        so that we have a qudratic fit of the data
+  note that feature scaling becomes increasingly important, because without scaling the gradient may converge slowly 
+    ex. size  : 1 - 1,000
+        size^2: 1 - 1,000,000
+  choice of features
+    ex. 1, size, size ^ 2
+        1, size, size ^ (1 / 2)
+    there are algorithms that automatically choose the features for you
+
