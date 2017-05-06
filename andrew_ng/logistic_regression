@@ -1,0 +1,41 @@
+# logistic regression
+  a classification algorithm
+  decision boundary: splits the data into different classes (negative/positive: 0/1)
+  it predicts a probability (chance that an example is positive)
+  logistic regression is not good for non-linear classification
+    for non-linear classification, use neural networks or support vector machines
+
+# classification problem
+  the values we want to predict belongs to a small number of discrete values
+    ex. binary classification problem: 0/1
+
+# multi-class classification
+  if you have multiple classes, use one-vs-all classification
+
+# sigmoid function (used in hypothesis)
+  a probability/percentage (between 0 and 1) that an example is positive
+    sigmoid(0) = 0.5 ... sigmoid(+x) > 0.5 and sigmoid(-x) < 0.5
+  it smooths out the predictions, instead of a prediction of just negative/positive (0/1)
+
+# cost function
+  how far the predicted probability is away from its answer
+  we do not use the square error function as the cost function would be non-convex (i.e. wavy, many local optima)
+    becuase the hypothesis uses a sigmoid function, which is not linear
+  instead, the cost function takes a log scale, so that it is convex
+    the more wrong you were, the more you get penalized
+      for a positive example:
+        cost -> 0    when prediction -> 1
+        cost -> inf  when prediction -> 0
+      the penality grows exponentially if the prediction is close to 0 for a positive example
+
+# optimazation algorithm
+  to find optimal parameters, we need to:
+    compute the cost function for a given parameters (checking the convergence) and
+    compute the derivative for each parameter terms
+  we can rely on one of the following optimazation algorithms:
+  (need to pick a learning rate)
+  1) gradient descent
+  (no need to pick a learning rate, faster than gradient, but more complex) 
+  2) conjugate gradient
+  3) BFGS
+  4) L-BFGS
