@@ -10,7 +10,11 @@
     ex. binary classification problem: 0/1
 
 # multi-class classification
-  if you have multiple classes, use one-vs-all classification
+  if you have multiple classes, use one-vs-all classification (one-vs-rest)
+  ex. if we have three classes: Class 1, 2, 3, then
+      train a logistic regression classifier for each of the classes
+        i.e train for Class 1 vs. Class 2,3, and Class 2 vs. Class 1,3, and Class 3 vs. Class 1, 2
+      then pick the maximum prediction (probability) as the final prediction
 
 # sigmoid function (used in hypothesis)
   a probability/percentage (between 0 and 1) that an example is positive
@@ -35,7 +39,9 @@
   we can rely on one of the following optimazation algorithms:
   (need to pick a learning rate)
   1) gradient descent
-  (no need to pick a learning rate, faster than gradient, but more complex) 
+     note that the update of parameters in logistic regression are identical to the update in linear regression
+     the only difference is that logistic regression uses a sigmoid function in the hypothesis 
+  (no need to pick a learning rate, faster ways than gradient descent, but more complex) 
   2) conjugate gradient
   3) BFGS
   4) L-BFGS

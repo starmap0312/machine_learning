@@ -1,0 +1,21 @@
+# regularization
+  with regularization, we have the following two goals
+  goal 1: we want to fit the training set well
+  goal 2: we want to keep the parameters small (keep the hypothesis simple to avoid overfitting)
+          a smoother curve that fits the data
+
+# regularization parameter (lambda)
+  we use a regularized cost function
+  the regularization parameter controls the trade-off between the above two goals
+  if regularization parameter is large, we penalize large parameters heavily
+    we get a rather smooth curve
+    the paramters are close to 0, we get rid of many terms (features), so the hypothesis is a flat line
+    the hypothesis is a poor fit to the data, i.e. underfitting (high bias)
+  the model selection algorithms will automatically choose a good regularization parameter
+
+# regularized linear regression
+  minimize the regularized cost function
+  at each iteration of gradient descent, the parameters are shrinking a little bit after each iteration
+    i.e. the value of a parameter is reduced by some amount on every update
+
+# regularized logistic regression

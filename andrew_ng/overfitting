@@ -1,0 +1,28 @@
+# underfitting
+  high bias
+  a poor fit to the data
+    ex. try to use a line to fit data of a curve (quadratic function)
+
+# overfitting
+  high variance
+  fit the data with a very high-order polynormial
+    ex. try to use a wavy curve (polynormial of order 4) to fit data of a curve (quadratic function)
+  if we have too many features (ex. we generate many high-order polynormial terms as features),
+    the learned hypothesis fit the training set very well
+    we get a very low cost (close to zero), it tries too hard to fit the training set
+    but the hypothesis fail to generalize to new examples (not seen in training set)
+
+# addressing overfitting
+  1) plot the examples and the hypothesis
+     from the plotted graph, we can decide the correct order of polynormial to use
+     but it is often not possible to visualize (plot) the graph when we have many features
+  2) reduce the number of features
+     a) manually select which features to keep
+     b) use model selection algorithm
+     but the disavantage is that we may throw away some of the features (information) that is actually useful 
+  3) regularization
+     keep all the features, but reduce the magnitude/values of parameters
+       make the values of parameters small (put them also in the objective function of the minimization problem)
+       having small values of parameters implies that simpler hypothesis: less prone to overfitting
+         ex. if some parameters are close to 0, then its corresponding feature is omitted (fewer terms in the polynomials)
+     it works well even if we have a lot of features, each of which can contribute a bit to the prediction
