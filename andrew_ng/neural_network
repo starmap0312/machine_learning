@@ -1,0 +1,31 @@
+# non-linear classification
+  motivation:
+    if the number of features is large (ex. n = 1,000 features)
+      using polynomail regression dramatically blows up the number of features, ex. O(n ^ 2), O(n ^ 3)
+  solution:
+    neural network: use multi-layers to capture non-linear classification
+
+# neuron model
+  x_0 = 1 (bias unit)
+  x_1
+  x_2
+
+# cost function
+  generalize the cost function of logistic regression
+
+# gradient checking
+  used to avoid implementation bug of back propagation
+  numerically approximate the partial derivatives by
+    computing numerical estimate of gradient of the cost function between two near points (+/- epsilon)
+  check if the computed derivatives are close to the computed approximate gradients
+  turn off the check once you are certain that the back propagation implementation is correct
+
+# random initialization
+  initializing zero(n, 1) is not working for neural network (it is OK for logistic regression)
+    all hidden unit will compute the same feature, so you will not get any interesting hypothesis
+  random initialization
+    initialize parameters to small random values close to zero
+
+# network architecture
+  reasonable default: 1 hidden layer, or same no. of hidden in every single layer
+  the more hidden layer is better (but it requires more computation)

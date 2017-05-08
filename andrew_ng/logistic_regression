@@ -33,15 +33,17 @@
       the penality grows exponentially if the prediction is close to 0 for a positive example
 
 # optimazation algorithm
-  to find optimal parameters, we need to:
-    compute the cost function for a given parameters (checking the convergence) and
-    compute the derivative for each parameter terms
-  we can rely on one of the following optimazation algorithms:
-  (need to pick a learning rate)
+  to find optimal parameters, we need:
+  1) computation of the cost function for a given parameters (ex. convergence test) and
+  2) computation of the derivative for each parameter terms
+  provided the above two compuatation, we can apply one of the following optimazation algorithms:
   1) gradient descent
      note that the update of parameters in logistic regression are identical to the update in linear regression
      the only difference is that logistic regression uses a sigmoid function in the hypothesis 
-  (no need to pick a learning rate, faster ways than gradient descent, but more complex) 
+     (need to pick a learning rate)
   2) conjugate gradient
   3) BFGS
   4) L-BFGS
+     (no need to pick a learning rate, faster ways than gradient descent, but more complex) 
+     they pick the learning rate automatically
+     they do other things so that they converge more quickly
