@@ -80,3 +80,25 @@
      use regularization to address overfit
      cons: computationally more expensive
 
+# machine learning system design
+  1) collect lots of data (labeled examples)
+  2) develop (sophisticated) features
+  3) develop (sophisticated) algorithm to process input in different ways (recognizing some important characteristics) 
+  it is difficult to tell which of the options will be most helpful
+
+  recommendation of steps:
+  1) start with a simple algorithm that can be quickly implemented (a quick and dirty solution)
+  2) plot the learning curves to decide if more data or features are likely to help
+  3) do error analysis
+     manually examine the examples (in cross validation set) that your algorithm make wrong prediction
+     this should gives you insight for developing new features or making improvement
+     i)  catogarize the misclassified examples (what type of the example is)
+         developing new features for the type of examples that our algoirthm perform poorly
+     ii) design new features that you think may help the classification
+
+  the importance of numerical evaluation (using the cross validation set)
+  ex. discount/discounts/discounted/discounting be treated as the same word (ex. do a stemming step)
+      do numerical evaluation (ex. cross validation error) to compare the performance of with stemming and without stemming
+  ex. mon/Mon be treated as the same word (case-insensitive)
+  doing numerical evaluation helps us to see if our new ideas are helpful or not (help us to make decisions)
+
