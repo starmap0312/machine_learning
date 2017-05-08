@@ -1,0 +1,82 @@
+# if we get large errors in predictions of new testing examples
+  1) collect more training examples
+     sometimes getting more training examples will not help
+     it is good if we are suffering from high variance (overfit, hypothesis is too complex)
+  2) try smaller sets of features
+     try to prevent overfit
+     it is good if we are suffering from high variance (overfit, hypothesis is too complex)
+  3) try getting additional features
+     try to add more useful features
+     it is good if we are suffering from high bias (underfit, hypothesis is too simple)
+  4) try adding polynomial features
+     try to prevent underfit
+     it is good if we are suffering from high bias (underfit, hypothesis is too simple)
+  5) try decreasing regularization parameter 
+     it is good if we are suffering from high bias (underfit, hypothesis is too simple)
+  6) try increasing regularization parameter
+     it is good if we are suffering from high variance (overfit, hypothesis is too complex)
+  machine learning diagnostic
+    there are simple techniques (tests) to decide what to do, ex. plot learning curves
+
+# evaluating a learned hypothesis 
+  1) split examples into training set (ex. 70%) and test set (ex. 30%)
+     shuffle the examples before the split
+  2) compute the test set error
+     ex. logistic regression
+         compute average cost of all test examples, or
+         compute misclassification error (0/1 misclassification error)
+           i.e. false positive/negative (mis-labeld, wrong prediction) rate when setting threshold to 0.5
+
+# model selection
+  choosing regularization parameter, degrees of polynomials to fit the data, etc.
+  pitfall:
+    split the examples into training set and test set
+    pick the model with minimum test set error
+    this does not work, because we are training a powerful model that includes all models with an additional parameter
+      it is guranteed to fit all examples well, as it is the one with minimum test set error
+  solution:
+    use cross validation instead
+    split the examples into 3 sets: training set (ex. 60%), cross validation set (ex. 20), test set (ex. 20%)
+      use the training set to learn the best parameters for each model (with the lowest training error)
+      use the cross validation set to pick the best model (degree of polynomail d with the lowest cross validation error)
+      use to test set to estimate the generalization error of the selected model
+      (so that the degree of the polynomial d has not been trained using the test set)
+    training error / cross validation error / test error
+    
+# bias vs. variance
+  choosing models
+  1) if suffering from bias problem (underfit)
+     both training error and cross validation error are high
+  2) if suffering from variance (overfit)
+     training error is low, but cross validation error is much higher than training error
+
+  choosing regularization parameter
+  1) if regularization parameter is small
+     the training error is small (overfit), but the cross validation error (high variance) is high
+  2) if regularization parameter is large
+     both the training error (underfit) and the cross validation error (high bias) are high
+  in practice, we can try regularization parameter: 0, 0.01, 0.02, 0.04, 0.08, ..., 10.24, ...
+    use cross validation set to evaluate the cross validation error, and pick the parameter with the minimum error
+  we can plot the training error and the cross validation error in a graph for verification
+
+# learning curves
+  used to find out if a learning algorithm is suffering from bias or variance problem
+  plot training error and cross validation error for increasing training set size (ex. 1, 2, 3, 4, ... training examples)
+  1) the training error is increasing (getting harder and harder to fit the data)
+  2) the cross validation error is descreasing (the more data you have for training, the better the hypothesis you can get)
+  if a learning algorithm is suffering from high bias (underfit)
+    small gap between the training error and cross validation error when training set size increases
+    getting more training data will not (by itself) help much, so no need to collect more training examples
+  if a learning algorithm is suffering from high variance (overfit)
+    large gap between the training error and cross validation error when training set size increases
+    getting more training data is likely to help
+
+# neural networks and overfit
+  1) small neural network
+     fewer parameters, more prone to underfit
+     pros: computationally cheaper
+  2) large neural network
+     more parameters (more hidden layers), more prone to overfit
+     use regularization to address overfit
+     cons: computationally more expensive
+
