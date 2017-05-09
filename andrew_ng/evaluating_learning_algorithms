@@ -102,3 +102,34 @@
   ex. mon/Mon be treated as the same word (case-insensitive)
   doing numerical evaluation helps us to see if our new ideas are helpful or not (help us to make decisions)
 
+# handling skewed data
+  ex. only 0.5% examples are positive (rare class, ex. having cancer)
+         0.5% positive examples
+        99.5% negative examples
+      if we always predict negative,
+        we get 99.5% precision (accuracy: 0.5% error), but
+        we get 0% recall
+  methods of evaluating learning algorithms that predicts rare classes:
+  1) precision:
+     true positive / predicted positive  =  true positive / (true positive + false positive)
+  2) recall:
+     true positive / actual positive     =  true positive / (true positive + false negative)
+  logistic regression
+  1) set the threshold higher than 0.5, so that we predict positive only if we are pretty confident
+     higher precision, lower recall
+  2) set the threshold lower than 0.5
+     if we want to avoid false negative (not missing too many positives)
+     lower precision, higher recall
+  F score (F1 score)
+    a single metric combining the two metrics (precision and recall)
+    used as a single evaluation metric to compare which algorithm is better
+    F score = 2 * (precision * recall) / (precision + recall)
+
+# do we have enough feature (information)?
+  certification: given the features, can a human domain expert confidently predict the result?
+
+# using large data set
+  if we use a complex model, ex. neural network, or logistic regression with many features (low bias)
+  if we have a very large training set, then it is unlikely to overfit (low variance)
+  then we should be able to get good learning algorithms with good performance
+  but it may be computational expensive to train a complex model
