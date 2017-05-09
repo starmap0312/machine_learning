@@ -33,4 +33,5 @@
      ex. n = 1,000, m = 100,000
      using SVM would be computational expensive
      create/add more features and then use logistic regerssion or SVM with linear kernel (no kernel)
-
+  note:
+    neural network is likely to work well for all of the above settings, but may be slow to train
