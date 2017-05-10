@@ -1,0 +1,15 @@
+# Spark SQL
+  a Spark module for structured data processing
+  the interfaces provide with information about the structure of both data and computation performed
+
+# Dataset
+  a distributed collection of data
+  it can be constructed from JVM objects and then manipulated using functional transformations (map, flatMap, filter, etc.)
+  it is similar to RDDs
+    instead of using Java serialization, it uses a specialized Encoder to serialize the objects for processing or transmitting over the network
+
+# DataFrame
+  a Dataset organized into named columns
+  it is conceptually equivalent to a table in a relational database or a dataframe in Python
+  it can be constructed from: structured data files (ex. csv), tables in Hive, external databases, or existing RDDs
+  in the Scala API, DataFrame is simply a type alias of Dataset[Row] (i.e. a Dataset of type parameter Row) 

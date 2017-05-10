@@ -1,0 +1,84 @@
+# Resilient Distributed Datasets (RDDs)
+  a fault-tolerant collection of elements that can be operated on in parallel
+  a collection of elements partitioned across the nodes of the cluster that can be operated on in parallel
+  one can persist an RDD in memory, allowing it to be reused efficiently across parallel operations
+  Resilient: RDDs automatically recover from node failures
+
+  there are two ways to create RDDs:
+  1) parallelizing an existing collection in your driver program, or
+     ex. calling SparkContext’s parallelize method on an existing collection (ex. Scala Seq) in driver program
+         val data = Array(1, 2, 3, 4, 5)        # Array[Int] = Array(1, 2, 3, 4, 5)
+         val distData = sc.parallelize(data)    # RDD[Int] = ParallelCollectionRDD[0]
+         distData.reduce((x, y) => x + y)       # the distributed dataset (distData) is operated on in parallel
+  2) referencing a dataset in an external storage system
+     ex. a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat
+         val distFile = sc.textFile("data.txt") # RDD[String] = data.txt MapPartitionsRDD[2]
+
+  it supports two types of operations
+  1) transformations: create a new dataset from an existing one
+     ex. map(): passing each dataset element through a function and returning a new RDD representing the results
+     all transformations in Spark are lazy (computed only when an action requires a result to be returned to the driver program)
+     each transformed RDD may be recomputed each time you run an action on it
+     but you may also persist an RDD in memory using the persist() method
+     ex. val lines = sc.textFile("data.txt")        # lines is merely a pointer to the file
+         val lineLengths = lines.map(s => s.length) # not immediately computed, due to laziness
+         lineLengths.persist()                      # saved in memory after the first time it is computed
+         val totalLength = lineLengths.reduce((a, b) => a + b) # an action
+         # this is when Spark breaks the computation into tasks to run on separate machines
+         # each machine runs both its part of the map and a local reduction, returning only its answer to the driver program
+  2) actions: return a value to the driver program after running a computation on the dataset
+     ex. reduce(): aggregating all the elements of the RDD using some function and returning the final result to the driver program
+         reduceByKey(): returning a distributed dataset
+
+# shared variables
+  Normall, variables are copied to each machine, and no updates to the variables on the remote machine are propagated back to the driver program
+  i.e. when Spark runs a function in parallel as a set of tasks on different nodes, it ships a copy of each variable to each task
+  but a variable can be shared across tasks, or between tasks and the driver program
+
+  two types of shared variables for common usage patterns:
+  1) broadcast variables: used to cache a value in memory on all nodes
+     keep a read-only variable cached on each machine rather than shipping a copy of it with tasks
+     ex. give every node a copy of a large input dataset in an efficient manner
+     the broadcasted data is cached in serialized form and deserialized before running each task
+     only useful when tasks across multiple stages need the same data or when caching the data in deserialized form is important
+     ex. val broadcastVar = sc.broadcast(Array(1, 2, 3))  # Broadcast[Array[Int]] = Broadcast(0)
+         broadcastVar.value                               # Array[Int] = Array(1, 2, 3)
+  2) accumulators: variables that are only "added" to, ex. counters and sums
+     used specifically to provide a mechanism for safely updating a variable when execution is split up across worker nodes in a cluster
+     ex. val accum = sc.longAccumulator("My Accumulator") # LongAccumulator = LongAccumulator(id: 0, name: Some(My Accumulator), value: 0)
+         sc.parallelize(Array(1, 2, 3, 4)).foreach(x => accum.add(x))
+         accum                                            # LongAccumulator = LongAccumulator(id: 0, name: Some(My Accumulator), value: 10)
+
+  to execute jobs, Spark breaks up the processing of RDD operations into tasks, each of which is executed by an executor
+  1) prior to execution, Spark computes the task's closure
+  2) the closure is those variables and methods which must be visible for the executor to perform its computations on the RDD
+  3) the closure is serialized and sent to each executor
+
+# Passing Functions to Spark
+  there are two ways to pass functions to Spark
+  1) anonymous function syntax
+     ex. myRdd.map((s: String) => { ... })
+  2) static methods in a global singleton object
+     ex. define object MyFunctions and then pass MyFunctions.func1
+         object MySingleton {
+           def method(s: String): String = { ... }
+         }
+         myRdd.map(MySingleton.method)
+     # or pass a reference to a method in a class instance
+     ex.
+         class MyClass {
+           def method(s: String): String = { ... }
+           def doStuff(rdd: RDD[String]): RDD[String] = { rdd.map(method) } # i.e. rdd.map(x => this.method(x))
+         }
+         val obj = new MyClass # create a new MyClass instance and then call doStuff on it
+         obj.doStuff(myRdd)    # the whole object needs to be sent to the cluster
+
+# RDD Persistence
+  1) persisting (or caching) a dataset in memory across operations
+     when you persist an RDD, each node stores any partitions of it that it computes in memory and reuses them in other actions on that dataset
+     this allows future actions to be much faster
+     it is a key tool for iterative algorithms and fast interactive use
+  2) mark an RDD to be persisted using the persist() or cache() methods on it
+     the first time it is computed in an action, it will be kept in memory on the nodes
+  3) one can also persist the dataset on disk, persist in memory but serialized as Java objects (to save space), replicate it across nodes
+
