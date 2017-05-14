@@ -1,0 +1,36 @@
+# anomalous examples
+  ex1. detect anomalous aircraft engines
+       given aircraft engine features: heat generated, vibration intensity, etc.
+       predict if an engine is anomalous (NOT normal)
+  ex2. detect anomalous website users (ex. bot users)
+  ex3. monitor anomalous computers in a data center
+
+# Gaussian distribution (i.e. Normal distribution)
+  mean
+  variance (suare of stardard deviation)
+
+# anomaly detection algorithm
+  1) choose features that you think are indicatives of anomalous examples
+     an example is anomalous if these feature values are rare
+  2) estimate the parameters means and variances of these features
+  3) predict an example is anomalous if the probability of its feature values is less than a threshold (epsilon) 
+
+# choice of threshold
+  use cross-validation set to decide the threshold based on f-score (precision and recall)
+
+# anomaly detection vs. supervised learning
+  1) anaomaly detection: very small number of positive examples
+     ex. fraud detection, manufacturing error, monitoring problematic machine in a data center, etc.
+     not suitable for supervised learning, as future anomalous examples may have patterns not seen yet
+  2) supervised learning: large number of positive and negative examples
+     ex. email spam classification, weather prediction (sunny/rainy), cancer classification, etc.
+
+# choosing features
+  1) plot the data to see if a feature resembles to Gaussian distribution
+  2) for non-Gaussian features:
+     if the data is skewed to one end, then try to take a log to see if it is more like Gaussian distribution
+     feed the transformed feature values to anaomaly detection algorithm instead
+  3) anomalous example should have rare probability for the feature value (its probablity is neutral, not rare)
+     if so, examine the mislabled example and try to create new features to distinguish it from normal examples
+     i.e. choosing features that are unusually large or small for anomalous exmaples
+
