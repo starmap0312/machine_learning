@@ -34,3 +34,6 @@
      if so, examine the mislabled example and try to create new features to distinguish it from normal examples
      i.e. choosing features that are unusually large or small for anomalous exmaples
 
+# multivariate Gaussian (Normal) distribution
+  don't model features separately, but model all in one go
+  it captures correlations between features
