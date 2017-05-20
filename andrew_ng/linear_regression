@@ -1,19 +1,26 @@
 # linear regression
   used to predict a value (ex. predict the price of a house based on its size)
-  1) hypothesis: predictions for any given feature (feature x -> prediction y)
-  2) parameters: parameters of terms in a hypothesis 
-  3) cost function: errors against the data for any given hypothesis (a higher-order function parameterized for all hypotheses)
-  4) objective/goal: find the optimal parameters with the minimum error
-
-# the cost function
-  how far the predictions are away from the actual data (how good your line fits the data)
-  a way of measuring how well any given hypothesis fits into the data
-  ex. square error function, or mean squared error (most commonly used cost function for linear regression, a convex function, bowl-shaped)
+  1) hypothesis:
+     a prediction function for any given feature (feature x -> prediction y)
+  2) parameters:
+     the parameters of terms in a hypothesis 
+  3) cost/loss function:
+     a function used to evaluate the difference (cost/loss) between estimation/prediction and true/actual value
+     i.e. how far the prediction is away from the actual data
+     ex. the squared loss (L2) and the absolute loss (L1)
+     ex. decision tree regression/ linear regression uses a squared-error cost/loss function
+     ex.  support vector machine uses a hinge loss function
+  4) objective/goal:
+     the error of an hypothesis is a measurement of how well a any given hypothesis fits into the data
+       ex. mean squared error (a convex function, bowl-shaped)
+     given a higher-order function parameterized for all hypotheses,
+       the objective is to find the optimal hypothesis with minimum error
+     parameter learning: finding the optimal parameters of hypotheses
+       the best line (hypothesis) that fits the data
 
 # gradient descent
-  parameter learning: used to find the optimal parameters (the best line that fits the data)
   1) learning rate: step size when descending (it affects when the convergence will happen)
-  2) derivative:
+  2) derivative: the descending direction
 
 # feature scaling
   make the features are on a similar scale, so that the gradient converges more quickly
