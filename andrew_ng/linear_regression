@@ -5,11 +5,16 @@
   2) parameters:
      the parameters of terms in a hypothesis 
   3) cost/loss function:
-     a function used to evaluate the difference (cost/loss) between estimation/prediction and true/actual value
+     a function used to evaluate the difference (cost/loss) between estimation/prediction and true value (actual data)
      i.e. how far the prediction is away from the actual data
-     ex. the squared loss (L2) and the absolute loss (L1)
+     ex. the 0-1 indicator function
+         the absolute loss function (L1)
+         the squared loss function (L2)
+         the log loss function (loss = inf at x -> 0, and loss = 0 at x = 1)
+         the hinge loss function (two straitforward lines)
+         the logistic loss function (loss = 0.5 at x = 1, and loss = 0 at x -> inf)
      ex. decision tree regression/ linear regression uses a squared-error cost/loss function
-     ex.  support vector machine uses a hinge loss function
+     ex. support vector machine uses a hinge loss function
   4) objective/goal:
      the error of an hypothesis is a measurement of how well a any given hypothesis fits into the data
        ex. mean squared error (a convex function, bowl-shaped)
